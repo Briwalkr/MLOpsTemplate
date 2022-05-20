@@ -12,7 +12,7 @@ on:
 jobs:
   Workshop-Train-Validation:
     runs-on: ubuntu-latest
-steps:
+    steps:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Setup python
@@ -27,12 +27,12 @@ steps:
       - name: AZ Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_SERVICE_PRINCIPAL }}   #setup: provide your Azure credentials name stored in github   .
+          creds: ${{ secrets.AZURE_SERVICE_PRINCIPAL }}   #setup: provide your Azure credentials name stored in github
 
       - name: Install az ml & set default values for AML
         run: | #setup: provide group, workspace and location
           az extension add -n ml -y --version 2.2.1
-          az configure --defaults group=ezmlopsrg20 workspace=ezmlopsws20 location=austrailiaeast   
+          az configure --defaults group=ezmlopsrg20 workspace=ezmlopsws20 location=australiaeast   
       - name: run training and model validation
         run: |
          az ml job create -s -f src/workshop/core/pipelines/training_pipeline.yml
@@ -44,4 +44,3 @@ steps:
           head: ${{ github.ref }}
           base: main
           title: "An automatically created PR to main by successful CI"
-
